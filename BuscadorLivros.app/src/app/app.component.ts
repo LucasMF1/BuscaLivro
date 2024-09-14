@@ -3,6 +3,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { forkJoin } from 'rxjs';
+import { AuthService } from './auth.service'; // Certifique-se de importar o AuthService
 
 interface Book {
   title: string;
@@ -21,38 +22,29 @@ interface Book {
 })
 export class AppComponent implements OnInit {
   title = 'BuscadorLivros.app';
-  
   books: Book[] = [];
   loggedIn = false; // Controle de login
+  username = ''; // Variável para armazenar o nome de usuário
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
     // Verifica se o usuário está logado
     this.loggedIn = localStorage.getItem('loggedIn') === 'true';
-    
+    this.username = localStorage.getItem('username') || ''; // Recupera o nome de usuário
+
     // Redireciona para a página de login caso não esteja logado
     if (!this.loggedIn) {
       this.router.navigate(['/login']);
     }
   }
-  
-    // Função de logout
-    logout(): void {
-      localStorage.removeItem('loggedIn'); // Remove o estado de login
-      this.loggedIn = false;
-      this.router.navigate(['/login']); // Redireciona para a tela de login
-    }
 
-  // Função para realizar o login e armazenar o estado de autenticação no localStorage
-  login(username: string, password: string): void {
-    if (username === 'admin' && password === 'password') {
-      this.loggedIn = true;
-      localStorage.setItem('loggedIn', 'true'); // Armazena o estado de login
-      this.router.navigate(['/books']); // Redireciona para a página de livros
-    } else {
-      alert('Credenciais inválidas');
-    }
+  // Função de logout
+  logout(): void {
+    localStorage.removeItem('loggedIn'); // Remove o estado de login
+    localStorage.removeItem('username'); // Remove o nome de usuário
+    this.loggedIn = false;
+    this.router.navigate(['/login']); // Redireciona para a tela de login
   }
 
   // Função para realizar a pesquisa por título, autor ou ambos
@@ -102,36 +94,33 @@ export class AppComponent implements OnInit {
     return 'assets/no-cover.jpg';
   }
 
+  // Função para favoritar um livro e enviá-lo ao servidor
   addToFavorites(book: Book): void {
-    // Solicita uma avaliação ao usuário
     const ratingInput = prompt('Dê uma avaliação (1-5):');
-    
-    // Verifica se o usuário forneceu uma avaliação válida
+
     if (ratingInput !== null) {
       const rating = parseInt(ratingInput, 10);
-  
-      // Valida se a avaliação está entre 1 e 5
+
       if (!isNaN(rating) && rating >= 1 && rating <= 5) {
-        
-        // Solicita uma nota pessoal
         const personalNote = prompt('Escreva uma nota pessoal sobre o livro:');
-        
-        // Adiciona o livro aos favoritos com a avaliação e a nota
-        const favoriteBook = {
-          ...book,
-          rating: rating,
-          note: personalNote || '' // Se o usuário não fornecer uma nota, armazena uma string vazia
-        };
-  
-        // Aqui você pode salvar os dados no servidor ou no localStorage
-        console.log(`Livro favoritado: ${book.title}, Avaliação: ${rating}, Nota: ${personalNote}`);
-        
-        // Exemplo de como armazenar no localStorage (substitua por uma chamada de API para um backend se necessário)
-        const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-        favorites.push(favoriteBook);
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-  
-        alert(`Livro "${book.title}" foi favoritado com sucesso!`);
+        const tags = prompt('Adicione algumas tags (separadas por vírgulas):');
+
+        const userId = localStorage.getItem('userId'); // Obtém o ID do usuário logado
+        if (!userId) {
+          alert('Você precisa estar logado para favoritar um livro.');
+          return;
+        }
+
+        // Envia os dados para o servidor via AuthService
+        this.authService.addFavorite(parseInt(userId), book.title, personalNote || '', rating, tags || '')
+          .subscribe(
+            () => {
+              alert(`Livro "${book.title}" foi favoritado com sucesso!`);
+            },
+            () => {
+              alert('Erro ao favoritar o livro.');
+            }
+          );
       } else {
         alert('Por favor, insira uma avaliação válida entre 1 e 5.');
       }
@@ -139,6 +128,4 @@ export class AppComponent implements OnInit {
       alert('A ação de favoritar foi cancelada.');
     }
   }
-  
-  
 }

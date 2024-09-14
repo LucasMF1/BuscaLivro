@@ -1,5 +1,7 @@
 <main class="main" *ngIf="loggedIn; else loginTemplate">
   <div class="top-bar">
+    <!-- Exibe o nome do usuário ao lado do botão de logout -->
+    <span>Bem-vindo, {{ username }}</span>
     <!-- Botão de Logout -->
     <button (click)="logout()">Logout</button>
   </div>

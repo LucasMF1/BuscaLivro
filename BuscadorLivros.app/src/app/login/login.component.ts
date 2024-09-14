@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router'; // Importar o RouterModule
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule,  RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -25,6 +25,7 @@ export class LoginComponent {
         // Login bem-sucedido, armazena o estado de login
         localStorage.setItem('loggedIn', 'true');
         localStorage.setItem('userId', response.userId.toString()); // Armazena o ID do usuário
+        localStorage.setItem('username', this.username); // Armazena o nome de usuário
 
         // Redireciona para a página de livros
         this.router.navigate(['/books']);
