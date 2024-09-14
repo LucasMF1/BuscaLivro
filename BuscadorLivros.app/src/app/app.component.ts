@@ -101,4 +101,44 @@ export class AppComponent implements OnInit {
     }
     return 'assets/no-cover.jpg';
   }
+
+  addToFavorites(book: Book): void {
+    // Solicita uma avaliação ao usuário
+    const ratingInput = prompt('Dê uma avaliação (1-5):');
+    
+    // Verifica se o usuário forneceu uma avaliação válida
+    if (ratingInput !== null) {
+      const rating = parseInt(ratingInput, 10);
+  
+      // Valida se a avaliação está entre 1 e 5
+      if (!isNaN(rating) && rating >= 1 && rating <= 5) {
+        
+        // Solicita uma nota pessoal
+        const personalNote = prompt('Escreva uma nota pessoal sobre o livro:');
+        
+        // Adiciona o livro aos favoritos com a avaliação e a nota
+        const favoriteBook = {
+          ...book,
+          rating: rating,
+          note: personalNote || '' // Se o usuário não fornecer uma nota, armazena uma string vazia
+        };
+  
+        // Aqui você pode salvar os dados no servidor ou no localStorage
+        console.log(`Livro favoritado: ${book.title}, Avaliação: ${rating}, Nota: ${personalNote}`);
+        
+        // Exemplo de como armazenar no localStorage (substitua por uma chamada de API para um backend se necessário)
+        const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        favorites.push(favoriteBook);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+  
+        alert(`Livro "${book.title}" foi favoritado com sucesso!`);
+      } else {
+        alert('Por favor, insira uma avaliação válida entre 1 e 5.');
+      }
+    } else {
+      alert('A ação de favoritar foi cancelada.');
+    }
+  }
+  
+  
 }

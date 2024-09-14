@@ -32,6 +32,9 @@
             <strong>{{ book.title }}</strong>
             <span> - por {{ book.author_name?.join(', ') || 'Autor desconhecido' }}</span>
             <p class="book-description">{{ book.description }}</p>
+
+            <!-- Botão para favoritar o livro -->
+            <button (click)="addToFavorites(book)">Favoritar</button>
           </div>
         </div>
       </div>
