@@ -1,45 +1,88 @@
+/* Mantém o botão de logout no canto superior direito */
+.top-bar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Centraliza a seção de busca no topo da página */
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinha no topo */
+    align-items: center;
+    margin-top: 50px; /* Espaçamento entre o topo da página e o conteúdo */
+    text-align: center;
+}
+
+/* Estiliza o campo de busca e o seletor */
+input[type="text"], select {
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
+}
+
+/* Estiliza o botão de busca */
+button {
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estiliza a lista de livros */
 .book-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 1rem;
-  }
-  
-  .book-item {
+    margin-top: 2rem;
+}
+
+.book-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center; /* Centraliza o conteúdo */
+    text-align: center;
     border: 1px solid #ccc;
     padding: 1rem;
     border-radius: 8px;
-  }
-  
-  .book-cover {
+}
+
+.book-cover {
     width: 120px;
     height: 180px;
     object-fit: cover;
     margin-bottom: 1rem;
-  }
-  
-  .book-info {
-    text-align: center; /* Centraliza o texto */
-  }
-  
-  .book-info strong {
+}
+
+.book-info {
+    text-align: center;
+}
+
+.book-info strong {
     display: block;
     font-size: 1rem;
     margin-bottom: 0.5rem;
-  }
-  
-  .book-info span {
+}
+
+.book-info span {
     display: block;
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
-  }
-  
-  .book-description {
+}
+
+.book-description {
     font-size: 0.85rem;
     color: #555;
     margin-top: 0.5rem;
-  }
-  
+}
