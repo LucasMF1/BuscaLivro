@@ -1,8 +1,13 @@
-<main class="main">
+<main class="main" *ngIf="loggedIn; else loginTemplate">
+  <div class="top-bar">
+    <!-- Botão de Logout -->
+    <button (click)="logout()">Logout</button>
+  </div>
+
   <div class="content">
     <div class="left-side">
       <h1>Busque livros na Open Library</h1>
-      
+
       <!-- Campo de entrada para a pesquisa -->
       <input #searchBox type="text" placeholder="Digite o título ou autor" />
 
@@ -10,20 +15,33 @@
       <select #searchType>
         <option value="title">Título</option>
         <option value="author">Autor</option>
-        <option value="todo">Autor/Título</option> <!-- Nova opção -->
+        <option value="todo">Autor/Título</option>
       </select>
 
       <!-- Botão de busca -->
       <button (click)="search(searchBox.value, searchType.value)">Buscar</button>
 
-      <!-- Listagem de resultados -->
-      <ul *ngIf="books.length > 0">
-        <li *ngFor="let book of books">
-          <strong>{{ book.title }}</strong>
-          <!-- Exibir o autor apenas se o campo author_name existir -->
-          <span *ngIf="book.author_name?.length"> - por {{ book.author_name?.join(', ') }}</span>
-        </li>
-      </ul>
+      <!-- Listagem de resultados com grid -->
+      <div class="book-list" *ngIf="books.length > 0">
+        <div class="book-item" *ngFor="let book of books">
+          <!-- Exibe a capa do livro -->
+          <img [src]="getBookCoverUrl(book)" alt="{{ book.title }}" class="book-cover" />
+
+          <!-- Exibe o título e o autor, centralizados -->
+          <div class="book-info">
+            <strong>{{ book.title }}</strong>
+            <span> - por {{ book.author_name?.join(', ') || 'Autor desconhecido' }}</span>
+            <p class="book-description">{{ book.description }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </main>
+
+<!-- Template para o login -->
+<ng-template #loginTemplate>
+  <div class="login-container">
+    <router-outlet></router-outlet>
+  </div>
+</ng-template>

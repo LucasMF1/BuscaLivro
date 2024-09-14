@@ -1,11 +1,13 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { FormsModule } from '@angular/forms'; // Certifique-se de importar FormsModule
 
-import { appRoutes } from './app.routes'; // Altere para appRoutes
+import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(appRoutes) // Altere para appRoutes
+    provideRouter(appRoutes),
+    importProvidersFrom(FormsModule) // Certifique-se de que FormsModule está aqui
   ]
 };
