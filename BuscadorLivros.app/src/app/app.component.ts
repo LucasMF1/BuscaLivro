@@ -11,6 +11,7 @@ interface Book {
   cover_i?: number;
   first_sentence?: string;
   description?: string;
+  key?: string; // Este campo é o ID único dos livros na API Open Library
 }
 
 @Component({
@@ -37,6 +38,11 @@ export class AppComponent implements OnInit {
     if (!this.loggedIn) {
       this.router.navigate(['/login']);
     }
+  }
+
+  // Função para navegar para a página de favoritos
+  navigateToFavorites(): void {
+    this.router.navigate(['/favorites']);
   }
 
   // Função de logout
@@ -111,8 +117,14 @@ export class AppComponent implements OnInit {
           return;
         }
 
-        // Envia os dados para o servidor via AuthService
-        this.authService.addFavorite(parseInt(userId), book.title, personalNote || '', rating, tags || '')
+        // Envia os dados para o servidor, usando a key (ID exclusivo do livro) como book_id
+        const bookId = book.key ? book.key.replace('/works/', '') : book.cover_i?.toString();
+        if (!bookId) {
+          alert('ID do livro não encontrado.');
+          return;
+        }
+
+        this.authService.addFavorite(parseInt(userId), bookId, personalNote || '', rating, tags || '', book.cover_i)
           .subscribe(
             () => {
               alert(`Livro "${book.title}" foi favoritado com sucesso!`);

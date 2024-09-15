@@ -2,6 +2,10 @@
   <div class="top-bar">
     <!-- Exibe o nome do usuário ao lado do botão de logout -->
     <span>Bem-vindo, {{ username }}</span>
+    
+    <!-- Botão para acessar livros favoritados -->
+    <button (click)="navigateToFavorites()">Meus Favoritos</button>
+    
     <!-- Botão de Logout -->
     <button (click)="logout()">Logout</button>
   </div>

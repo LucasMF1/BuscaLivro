@@ -108,6 +108,23 @@ app.get('/favorites/:user_id', (req, res) => {
   });
 });
 
+// Atualizar favorito
+app.put('/favorites/:id', (req, res) => {
+  const { note, rating, tags } = req.body;
+  const favoriteId = req.params.id;
+
+  db.run(
+    'UPDATE favorites SET note = ?, rating = ?, tags = ? WHERE id = ?',
+    [note, rating, tags, favoriteId],
+    function (err) {
+      if (err) {
+        return res.status(500).json({ message: 'Erro ao atualizar favorito.' });
+      }
+      res.json({ message: 'Favorito atualizado com sucesso!' });
+    }
+  );
+});
+
 // Inicializa o servidor
 app.listen(3000, () => {
   console.log('Servidor rodando na porta 3000');
