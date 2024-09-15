@@ -28,7 +28,9 @@ interface Favorite {
 })
 export class FavoritesComponent implements OnInit {
   favorites: Favorite[] = [];
+  filteredFavorites: Favorite[] = []; // Lista filtrada
   username = '';
+  filterTag = ''; // Variável para armazenar a tag de filtro
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) {}
 
@@ -53,6 +55,7 @@ export class FavoritesComponent implements OnInit {
       .subscribe({
         next: (favorites) => {
           this.favorites = favorites;
+          this.filteredFavorites = favorites; // Inicializa com todos os favoritos
         },
         error: () => {
           alert('Erro ao carregar favoritos.');
@@ -102,5 +105,16 @@ export class FavoritesComponent implements OnInit {
   // Função para cancelar a edição
   cancelEdit(favorite: Favorite) {
     favorite.isEditing = false; // Desativa o modo de edição sem salvar
+  }
+
+  // Função para filtrar os favoritos por tag
+  filterFavoritesByTag(): void {
+    if (this.filterTag.trim()) {
+      this.filteredFavorites = this.favorites.filter(favorite => 
+        favorite.tags.toLowerCase().includes(this.filterTag.toLowerCase())
+      );
+    } else {
+      this.filteredFavorites = this.favorites; // Mostra todos os favoritos se a tag estiver vazia
+    }
   }
 }

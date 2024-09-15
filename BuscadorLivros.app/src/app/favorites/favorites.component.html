@@ -3,13 +3,19 @@
     <button class="back-button" routerLink="/books">Voltar à Pesquisa</button>
   
     <h2>Favoritos de {{ username }}</h2>
-  
-    <div *ngIf="favorites.length === 0">
-      <p>Você ainda não favoritou nenhum livro.</p>
+
+    <!-- Campo para filtrar por tags -->
+    <div class="filter-section">
+        <label for="filter-tag">Filtrar por tag:</label>
+        <input id="filter-tag" [(ngModel)]="filterTag" (input)="filterFavoritesByTag()" placeholder="Digite uma tag" />
     </div>
-  
-    <div class="favorite-list" *ngIf="favorites.length > 0">
-      <div class="favorite-item" *ngFor="let favorite of favorites">
+
+    <div *ngIf="filteredFavorites.length === 0">
+      <p>Nenhum favorito encontrado com a tag "{{ filterTag }}".</p>
+    </div>
+
+    <div class="favorite-list" *ngIf="filteredFavorites.length > 0">
+      <div class="favorite-item" *ngFor="let favorite of filteredFavorites">
         <img [src]="getBookCoverUrl(favorite.cover_i)" alt="{{ favorite.title || favorite.book_id }}" class="book-cover" />
         <div class="favorite-details">
           <h3>{{ favorite.title || favorite.book_id }}</h3>
@@ -40,5 +46,4 @@
         </div>
       </div>
     </div>
-  </div>
-  
+</div>
