@@ -136,7 +136,7 @@ Existem dois serviços principais no projeto: frontend (Angular) e backend (Node
 - npm run lint: Roda o linter para verificar a qualidade do código.
 
 ## Estrutura do projeto
-   bash
+   ```bash
    BuscadorLivros.app/           # Raiz do projeto
    ── backend/                  # Diretório do backend (Node.js, Express, SQLite)
    │
@@ -155,7 +155,7 @@ Existem dois serviços principais no projeto: frontend (Angular) e backend (Node
    ├── package.json              # Configurações e scripts do frontend
    ├── README.md                 # Documentação do projeto
    ├── LICENSE                   # Arquivo de licença
-
+   ```
    
 
 - src/app: Contém os componentes e serviços do Angular.
