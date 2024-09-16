@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "install": "npm install"
   },
   "private": true,
   "dependencies": {
@@ -19,11 +20,7 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.3",
-    "express": "^4.21.0",
     "rxjs": "~7.8.0",
-    "sqlite3": "^5.1.7",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },
@@ -43,9 +40,9 @@
     "typescript": "~5.5.2",
     "typescript-eslint": "8.2.0"
   },
-  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.4.",
+  "description": "Frontend do Buscador de Livros, desenvolvido com Angular CLI.",
   "main": "eslint.config.js",
-  "keywords": [],
-  "author": "",
+  "keywords": ["angular", "frontend", "livros", "buscador"],
+  "author": "Seu Nome",
   "license": "ISC"
 }
