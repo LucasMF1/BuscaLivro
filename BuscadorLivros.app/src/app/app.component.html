@@ -4,13 +4,13 @@
     <div class="left-buttons">
       <button class="nav-button" [class.active]="activePage === 'books'" (click)="navigateToBooks()">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="button-icon">
-          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.242 1.16a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.242 1.16a5 5 0 1 1 0-10 5 5 0 0 1 0 10z" />
         </svg>
         Buscar livros
       </button>
       <button class="nav-button" [class.active]="activePage === 'favorites'" (click)="navigateToFavorites()">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="button-icon">
-          <path d="M8 12.146l-6.854-6.854a.5.5 0 0 1 .708-.708l6.146 6.146 6.146-6.146a.5.5 0 1 1 .708.708L8 12.146z"/>
+          <path d="M8 12.146l-6.854-6.854a.5.5 0 0 1 .708-.708l6.146 6.146 6.146-6.146a.5.5 0 1 1 .708.708L8 12.146z" />
         </svg>
         Meus Favoritos
       </button>
@@ -52,8 +52,19 @@
     <!-- Exibe uma mensagem de sucesso caso tenha sido realizada uma busca -->
     <div *ngIf="searchBox.value" class="search-result-message">
       <p *ngIf="books.length === 1">Foi localizado 1 livro.</p>
-      <p *ngIf="books.length > 1">Foram localizados {{ books.length }} livros.</p>
+      <p *ngIf="totalBooksFound > 1">Foram localizados {{ totalBooksFound }} livros.</p>
       <p *ngIf="books.length === 0">Nenhum livro encontrado para "{{ searchBox.value }}".</p>
+    </div>
+
+    <!-- Controles para selecionar o tamanho da página -->
+    <div class="pagination-controls">
+      <label for="pageSize">Livros por página:</label>
+      <select id="pageSize" (change)="onPageSizeChange($event)">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
     </div>
 
     <!-- Exibição dos livros encontrados -->
@@ -91,17 +102,27 @@
       </div>
     </div>
 
+    <!-- Controles de paginação -->
+    <div class="pagination" *ngIf="totalPages > 1">
+      <button class="pagination-button" [disabled]="currentPage === 1" (click)="prevPage()">
+        Página Anterior
+      </button>
+      <span>Página {{ currentPage }} de {{ totalPages }}</span>
+      <button class="pagination-button" [disabled]="currentPage === totalPages" (click)="nextPage()">
+        Próxima Página
+      </button>
+    </div>
   </div>
 
   <!-- Modal para favoritar o livro -->
-  <div class="modal" [ngClass]="{'show': isModalOpen}" *ngIf="isModalOpen">
+  <div class="modal" [ngClass]="{ 'show': isModalOpen }" *ngIf="isModalOpen">
     <div class="modal-content">
       <span class="close" tabindex="0" role="button" (click)="closeModal()" (keydown.enter)="closeModal()" (keydown.space)="closeModal()">&times;</span>
       <h2>Favoritar Livro</h2>
       <form (ngSubmit)="saveFavorite()">
         <!-- Avaliação -->
         <label for="rating">Avaliação (1-5):</label>
-        <input type="number" id="rating" [(ngModel)]="rating" name="rating" min="1" max="5" required>
+        <input type="number" id="rating" [(ngModel)]="rating" name="rating" min="1" max="5" required />
 
         <!-- Notas pessoais -->
         <label for="personalNote">Nota pessoal:</label>
@@ -109,7 +130,7 @@
 
         <!-- Tags -->
         <label for="tags">Tags (separadas por vírgula):</label>
-        <input type="text" id="tags" [(ngModel)]="tags" name="tags">
+        <input type="text" id="tags" [(ngModel)]="tags" name="tags" />
 
         <!-- Botões -->
         <div class="modal-buttons">
