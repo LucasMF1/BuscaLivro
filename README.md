@@ -13,7 +13,9 @@ Este projeto, desenvolvido por Lucas Monteiro Freitas, é uma aplicação que pe
 7. [Comandos importantes](#comandos-importantes)
 8. [Estrutura do projeto](#estrutura-do-projeto)
 9. [Contribuindo](#contribuindo)
-10. [Licença](#licença)
+10. [Detalhamento do projeto](#Detalhamento-do-projeto )
+11. [Manual do usuário](#Manual-do-usuário)
+12. [Licença](#licença)
 
 ## descrição
 
@@ -174,6 +176,12 @@ Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
 5. Abra um Pull Request.
 
 Certifique-se de seguir os padrões de código e rodar o linter com npm run lint antes de enviar sua contribuição.
+
+## Detalhamento do projeto 
+O detalhamento do projeto está no arquivo: [Desafio Dev Full Stack.pdf](Desafio-Dev-Full-Stack.pdf).
+
+## Manual do usuário
+O manual do usuário do sistema está no arquivo: [Manual do usuário.pdf](Manual-do-Usuário.pdf)
 
 ## Licença
 Este projeto está sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
