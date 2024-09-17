@@ -9,14 +9,15 @@ import { from } from 'rxjs';
 import { map, mergeMap, toArray } from 'rxjs/operators';
 
 interface Favorite {
-  id: number; // Adicione o campo `id` para identificar o favorito no banco de dados
+  id: number;
   book_id: string;
   note: string;
   rating: number;
   tags: string;
   cover_i?: number;
   title?: string;
-  isEditing?: boolean; // Variável para controle de edição
+  author_name?: string[];
+  isEditing?: boolean;
 }
 
 @Component({
@@ -28,9 +29,9 @@ interface Favorite {
 })
 export class FavoritesComponent implements OnInit {
   favorites: Favorite[] = [];
-  filteredFavorites: Favorite[] = []; // Lista filtrada
+  filteredFavorites: Favorite[] = [];
   username = '';
-  filterTag = ''; // Variável para armazenar a tag de filtro
+  filterTag = '';
 
   constructor(private authService: AuthService, private router: Router, private http: HttpClient) {}
 
@@ -45,7 +46,6 @@ export class FavoritesComponent implements OnInit {
 
     this.username = localStorage.getItem('username') || '';
 
-    // Obter favoritos do banco de dados e usar RxJS para buscar detalhes dos livros
     this.authService.getFavorites(parseInt(userId, 10))
       .pipe(
         mergeMap((favorites) => from(favorites)),
@@ -55,22 +55,23 @@ export class FavoritesComponent implements OnInit {
       .subscribe({
         next: (favorites) => {
           this.favorites = favorites;
-          this.filteredFavorites = favorites; // Inicializa com todos os favoritos
+          this.filteredFavorites = favorites;
         },
-        error: () => {
-          alert('Erro ao carregar favoritos.');
+        error: () => { 
+          alert('Erro ao carregar seus favoritos. Por favor, tente novamente.');
         }
       });
   }
 
-  // Função para buscar os detalhes do livro (título e capa) usando o book_id na API Open Library
+  // Função para buscar os detalhes do livro (título, capa e autores) usando o book_id na API Open Library
   fetchBookDetails(favorite: Favorite) {
     const apiUrl = `https://openlibrary.org/works/${favorite.book_id}.json`;
-    return this.http.get<{ title: string; covers?: number[] }>(apiUrl).pipe(
+    return this.http.get<{ title: string; covers?: number[], authors?: { name: string }[] }>(apiUrl).pipe(
       map((data) => ({
         ...favorite,
         title: data.title,
-        cover_i: data.covers && data.covers.length > 0 ? data.covers[0] : undefined
+        cover_i: data.covers && data.covers.length > 0 ? data.covers[0] : undefined,
+        author_name: data.authors ? data.authors.map(author => author.name) : [] // Adicionando autores
       }))
     );
   }
@@ -80,12 +81,12 @@ export class FavoritesComponent implements OnInit {
     if (cover_i) {
       return `https://covers.openlibrary.org/b/id/${cover_i}-M.jpg`;
     }
-    return 'assets/no-cover.jpg';
+    return 'assets/images/default-cover.jpg';
   }
 
   // Função para ativar o modo de edição para um favorito
   editFavorite(favorite: Favorite) {
-    favorite.isEditing = true; // Ativa o modo de edição
+    favorite.isEditing = true; 
   }
 
   // Função para salvar as alterações feitas no favorito
@@ -93,18 +94,18 @@ export class FavoritesComponent implements OnInit {
     this.authService.updateFavorite(favorite.id, favorite.note, favorite.rating, favorite.tags)
       .subscribe({
         next: () => {
-          favorite.isEditing = false; // Desativa o modo de edição após salvar
+          favorite.isEditing = false; 
           alert('Favorito atualizado com sucesso!');
         },
         error: () => {
-          alert('Erro ao atualizar favorito.');
+          alert('Erro ao atualizar o favorito. Por favor, tente novamente.');
         }
       });
   }
 
   // Função para cancelar a edição
   cancelEdit(favorite: Favorite) {
-    favorite.isEditing = false; // Desativa o modo de edição sem salvar
+    favorite.isEditing = false; 
   }
 
   // Função para filtrar os favoritos por tag
@@ -114,7 +115,15 @@ export class FavoritesComponent implements OnInit {
         favorite.tags.toLowerCase().includes(this.filterTag.toLowerCase())
       );
     } else {
-      this.filteredFavorites = this.favorites; // Mostra todos os favoritos se a tag estiver vazia
+      this.filteredFavorites = this.favorites; 
     }
   }
+
+  // Função para limpar o campo de tag e atualizar os favoritos
+  clearFilter(): void {
+    this.filterTag = '';
+    this.filterFavoritesByTag(); // Chama a função de filtragem para atualizar a lista
+  }
+  
 }
+

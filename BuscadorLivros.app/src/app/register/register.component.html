@@ -1,19 +1,29 @@
 <div class="register-container">
     <h2>Registro</h2>
     <form (ngSubmit)="onSubmit()">
+      <!-- Campo de nome de usuário -->
       <div class="form-group">
         <label for="username">Usuário</label>
         <input id="username" type="text" [(ngModel)]="username" name="username" required />
       </div>
+  
+      <!-- Campo de senha -->
       <div class="form-group">
         <label for="password">Senha</label>
         <input id="password" type="password" [(ngModel)]="password" name="password" required />
       </div>
+  
+      <!-- Campo de confirmação de senha -->
       <div class="form-group">
         <label for="confirmPassword">Confirmar Senha</label>
         <input id="confirmPassword" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required />
       </div>
-      <button type="submit">Registrar</button>
+  
+      <!-- Contêiner de botões -->
+      <div class="button-container">
+        <button type="submit" class="register-button">Registrar</button>
+        <button type="button" class="cancel-button" (click)="onCancel()">Cancelar</button>
+      </div>
     </form>
   </div>
-  
+   

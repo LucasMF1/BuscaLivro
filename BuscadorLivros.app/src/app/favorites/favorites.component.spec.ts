@@ -21,3 +21,4 @@ describe('FavoritesComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+ 

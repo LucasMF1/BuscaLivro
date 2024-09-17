@@ -27,12 +27,15 @@ export class LoginComponent {
         localStorage.setItem('userId', response.userId.toString()); // Armazena o ID do usuário
         localStorage.setItem('username', this.username); // Armazena o nome de usuário
 
+        // Exibe uma mensagem de boas-vindas ao usuário
+        //alert(`Bem-vindo, ${this.username}!`);
+
         // Redireciona para a página de livros
         this.router.navigate(['/books']);
       },
-      () => {
+      () => { 
         // Em caso de erro de autenticação
-        alert('Credenciais inválidas');
+        alert('Credenciais inválidas. Por favor, tente novamente.');
       }
     );
   }

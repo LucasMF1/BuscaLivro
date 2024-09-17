@@ -1,49 +1,52 @@
 <div class="favorites-container">
-    <!-- Botão para voltar à página de pesquisa -->
-    <button class="back-button" routerLink="/books">Voltar à Pesquisa</button>
-  
-    <h2>Favoritos de {{ username }}</h2>
-
     <!-- Campo para filtrar por tags -->
-    <div class="filter-section">
-        <label for="filter-tag">Filtrar por tag:</label>
-        <input id="filter-tag" [(ngModel)]="filterTag" (input)="filterFavoritesByTag()" placeholder="Digite uma tag" />
+    <div class="filter-section" style="position: relative;">
+      <label for="filter-tag">Filtrar tag:</label>
+      <input id="filter-tag" [(ngModel)]="filterTag" (input)="filterFavoritesByTag()" placeholder="Digite uma tag" />
+      <button *ngIf="filterTag" class="clear-button" (click)="clearFilter()">&#10005;</button>
     </div>
-
+    
+    <!-- Mensagem quando não há favoritos filtrados -->
     <div *ngIf="filteredFavorites.length === 0">
       <p>Nenhum favorito encontrado com a tag "{{ filterTag }}".</p>
     </div>
-
+  
+    <!-- Listagem de favoritos -->
     <div class="favorite-list" *ngIf="filteredFavorites.length > 0">
       <div class="favorite-item" *ngFor="let favorite of filteredFavorites">
-        <img [src]="getBookCoverUrl(favorite.cover_i)" alt="{{ favorite.title || favorite.book_id }}" class="book-cover" />
-        <div class="favorite-details">
-          <h3>{{ favorite.title || favorite.book_id }}</h3>
-  
-          <!-- Campos editáveis -->
-          <div *ngIf="favorite.isEditing">
-            <label for="rating-{{favorite.id}}">Avaliação:</label>
-            <input id="rating-{{favorite.id}}" type="number" [(ngModel)]="favorite.rating" min="1" max="5" />
-  
-            <label for="note-{{favorite.id}}">Nota:</label>
-            <textarea id="note-{{favorite.id}}" [(ngModel)]="favorite.note"></textarea>
-  
-            <label for="tags-{{favorite.id}}">Tags:</label>
-            <input id="tags-{{favorite.id}}" type="text" [(ngModel)]="favorite.tags" />
-  
-            <!-- Botões de ação -->
-            <button (click)="saveFavorite(favorite)">Salvar</button>
-            <button (click)="cancelEdit(favorite)">Cancelar</button>
-          </div>
-  
-          <!-- Exibição normal -->
-          <div *ngIf="!favorite.isEditing">
+        <div class="book-info">
+          <img [src]="getBookCoverUrl(favorite.cover_i)" alt="{{ favorite.title || favorite.book_id }}" class="book-cover" />
+          <div class="favorite-details">
+            <h3>{{ favorite.title || favorite.book_id }}</h3>
+            <p *ngIf="favorite.author_name && favorite.author_name.length > 0">
+              <strong>Autores:</strong> {{ favorite.author_name.join(', ') }}
+            </p>
+            <p *ngIf="!favorite.author_name || favorite.author_name.length === 0">
+              <strong>Autores:</strong> Não informado
+            </p>
             <p><strong>Avaliação:</strong> {{ favorite.rating }} / 5</p>
-            <p><strong>Nota:</strong> {{ favorite.note }}</p>
             <p><strong>Tags:</strong> {{ favorite.tags }}</p>
-            <button (click)="editFavorite(favorite)">Editar</button>
           </div>
+        </div>
+  
+        <!-- Modo de edição -->
+        <div *ngIf="favorite.isEditing" class="favorite-edit">
+          <label for="rating-{{favorite.id}}">Avaliação:</label>
+          <input id="rating-{{favorite.id}}" type="number" [(ngModel)]="favorite.rating" min="1" max="5" />
+          <label for="note-{{favorite.id}}">Nota:</label>
+          <textarea id="note-{{favorite.id}}" [(ngModel)]="favorite.note" class="note-textarea"></textarea>
+          <label for="tags-{{favorite.id}}">Tags:</label>
+          <input id="tags-{{favorite.id}}" type="text" [(ngModel)]="favorite.tags" />
+          <button (click)="saveFavorite(favorite)">Salvar</button>
+          <button (click)="cancelEdit(favorite)">Cancelar</button>
+        </div>
+  
+        <!-- Modo de visualização -->
+        <div *ngIf="!favorite.isEditing" class="favorite-note-edit">
+          <p><strong>Nota:</strong> <span class="note">{{ favorite.note }}</span></p>
+          <button (click)="editFavorite(favorite)">Editar</button>
         </div>
       </div>
     </div>
-</div>
+  </div> 
+  

@@ -1,48 +1,70 @@
+/* Centraliza o contêiner de login */
 .login-container {
     max-width: 400px;
-    margin: 150px auto; /* Centraliza o formulário verticalmente e horizontalmente */
-    padding: 2rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+    margin: 150px auto;
+    padding: var(--padding-standard);
+    border-radius: var(--border-radius);
+    background-color: white;
     text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra leve */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
+h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: var(--font-color);
+}
+
+/* Estiliza o grupo de campos de entrada */
 .form-group {
-    margin-bottom: 4rem; /* Aumenta o espaço entre os campos */
+    margin-bottom: 1.5rem;
+    text-align: left; /* Alinha os rótulos à esquerda */
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.75rem; /* Adiciona mais espaço entre o label e o input */
+    margin-bottom: 0.5rem;
     font-weight: bold;
-    text-align: left; /* Alinha os labels à esquerda */
+    color: var(--font-color);
 }
 
-.form-group input {
+/* Ajusta o estilo dos campos de texto */
+input[type="text"],
+input[type="password"] {
     width: 100%;
-    padding: 0.75rem; /* Aumenta o espaçamento interno do input */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.form-group:nth-child(2) {
-    margin-bottom: 3rem; /* Aumenta o espaçamento especificamente entre os campos de usuário e senha */
-}
-
-button {
-    width: 100%; /* Faz o botão ocupar toda a largura */
-    margin-top: 1rem; /* Adiciona mais espaço entre o botão e o campo de senha */
     padding: 0.75rem;
-    background-color: #007bff;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Ajusta o botão de submissão */
+button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: var(--secondary-color);
+}
+
+/* Estilo do link de registro */
+.register-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+} 
+
+.register-link:hover {
+    text-decoration: underline;
 }

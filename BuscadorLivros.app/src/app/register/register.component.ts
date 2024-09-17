@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Certifique-se de incluir o FormsModule aqui
+  imports: [CommonModule, FormsModule], 
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
@@ -18,23 +18,30 @@ export class RegisterComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  // Função para registro
   onSubmit(): void {
     if (this.password !== this.confirmPassword) {
-      alert('As senhas não correspondem.');
+      alert('As senhas não correspondem. Por favor, tente novamente.');
       return;
     }
 
     this.authService.register(this.username, this.password)
       .subscribe({
         next: () => {
-          alert('Registro bem-sucedido!');
+          alert('Registro bem-sucedido! Você será redirecionado para a tela de login.');
           this.router.navigate(['/login']);
         },
         error: (error) => {
-          console.error('Erro ao registrar:', error); // Log do erro completo
-          const errorMessage = error?.error?.message || 'Erro ao registrar.';
+          console.error('Erro ao registrar:', error);
+          const errorMessage = error?.error?.message || 'Houve um erro no registro. Por favor, tente novamente.';
           alert(errorMessage);
         }
       });
   }
+
+  // Função de cancelamento
+  onCancel(): void {
+    this.router.navigate(['/login']); // Redireciona para a página de login ou outra página de sua escolha
+  }
 }
+ 

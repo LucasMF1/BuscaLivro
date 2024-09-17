@@ -1,18 +1,23 @@
 <div class="login-container">
     <h2>Login</h2>
     <form (ngSubmit)="onSubmit()">
-      <div>
+      <!-- Campo de nome de usuário -->
+      <div class="form-group">
         <label for="username">Usuário</label>
         <input id="username" type="text" [(ngModel)]="username" name="username" required />
       </div>
-      <div>
+  
+      <!-- Campo de senha -->
+      <div class="form-group">
         <label for="password">Senha</label>
         <input id="password" type="password" [(ngModel)]="password" name="password" required />
       </div>
-      <button type="submit">Entrar</button>
+  
+      <!-- Botão de login -->
+      <button type="submit" class="login-button">Entrar</button>
     </form>
   
-    <!-- Link para a página de registro -->
-    <p>Não tem uma conta? <a routerLink="/register">Registre-se aqui</a></p>
+    <!-- Link para registro --> 
+    <p>Não tem uma conta? <a routerLink="/register" class="register-link">Registre-se aqui</a></p>
   </div>
   
