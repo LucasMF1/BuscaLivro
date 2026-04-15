@@ -3,280 +3,1223 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meu Projeto</title>
-  <meta name="description" content="Página inicial do projeto hospedada no GitHub Pages." />
+  <title>Evidentia Review | Revisões sistemáticas com rastreabilidade</title>
+  <meta
+    name="description"
+    content="Evidentia Review é uma plataforma para planejar, conduzir, analisar e reportar revisões sistemáticas com rastreabilidade, colaboração e rigor metodológico."
+  />
+  <meta name="theme-color" content="#f5f7ff" />
   <style>
     :root {
-      --bg: #0f172a;
-      --panel: #111827;
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-2: #22c55e;
-      --border: rgba(255,255,255,0.08);
+      --bg: #f5f7ff;
+      --bg-strong: #eaf0ff;
+      --surface: rgba(255, 255, 255, 0.8);
+      --surface-strong: #ffffff;
+      --text: #13213b;
+      --text-soft: #475569;
+      --line: rgba(19, 33, 59, 0.12);
+      --primary: #4c74e6;
+      --primary-strong: #1954d6;
+      --primary-soft: #86a2fa;
+      --accent: #12b886;
+      --accent-soft: rgba(18, 184, 134, 0.16);
+      --shadow: 0 24px 80px rgba(25, 84, 214, 0.12);
+      --shadow-soft: 0 16px 40px rgba(19, 33, 59, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --container: min(1180px, calc(100% - 40px));
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
-      font-family: Inter, Arial, sans-serif;
-      background: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
       color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(134, 162, 250, 0.38), transparent 32%),
+        radial-gradient(circle at top right, rgba(18, 184, 134, 0.12), transparent 24%),
+        linear-gradient(180deg, #f8faff 0%, #f2f6ff 48%, #fcfdff 100%);
       line-height: 1.6;
     }
 
+    a {
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
     .container {
-      width: min(1100px, 92%);
+      width: var(--container);
       margin: 0 auto;
     }
 
-    header {
-      padding: 72px 0 40px;
-      border-bottom: 1px solid var(--border);
+    .site-top {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(245, 247, 255, 0.82);
+      border-bottom: 1px solid rgba(19, 33, 59, 0.08);
     }
 
-    nav {
+    .site-nav {
+      min-height: 78px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 56px;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 0;
     }
 
     .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
       font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.01em;
     }
 
-    .nav-links a,
-    .hero a,
-    .card a,
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(25, 84, 214, 0.18);
+    }
+
+    .brand small {
+      display: block;
+      color: var(--text-soft);
+      font-weight: 500;
+      font-size: 0.84rem;
     }
 
     .nav-links {
       display: flex;
+      align-items: center;
       gap: 18px;
       flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-soft);
+      font-size: 0.96rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--primary-strong);
     }
 
     .hero {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 32px;
-      align-items: center;
+      padding: 52px 0 28px;
     }
 
-    .tag {
-      display: inline-block;
-      padding: 6px 12px;
-      border: 1px solid var(--border);
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-visual,
+    .panel,
+    .feature-card,
+    .stage-card,
+    .module-card,
+    .doc-card,
+    .stat-band {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-copy {
+      padding: 34px;
+      border-radius: var(--radius-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      inset: auto -70px -90px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(134, 162, 250, 0.34), transparent 70%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 14px;
       border-radius: 999px;
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 18px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(25, 84, 214, 0.1);
+      color: var(--primary-strong);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Merriweather", Georgia, serif;
+      letter-spacing: -0.02em;
     }
 
     h1 {
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      line-height: 1.1;
-      margin: 0 0 16px;
+      font-size: clamp(2.7rem, 5vw, 5rem);
+      line-height: 1.04;
+      max-width: 11ch;
+      margin-bottom: 18px;
     }
 
-    .subtitle {
-      color: var(--muted);
-      max-width: 60ch;
-      margin-bottom: 24px;
-      font-size: 1.05rem;
+    .hero-copy p {
+      color: var(--text-soft);
+      font-size: 1.06rem;
+      max-width: 62ch;
+      margin: 0 0 24px;
     }
 
-    .actions {
+    .hero-actions {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       flex-wrap: wrap;
+      margin-bottom: 26px;
     }
 
-    .btn {
-      display: inline-block;
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
       padding: 12px 18px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      font-weight: 600;
-      transition: 0.2s ease;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
-    .btn-primary {
-      background: var(--accent);
-      color: #082f49 !important;
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
     }
 
-    .btn-secondary {
-      border-color: var(--border);
-      color: var(--text) !important;
-      background: rgba(255,255,255,0.03);
+    .button-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary-strong), var(--primary));
+      box-shadow: 0 16px 32px rgba(25, 84, 214, 0.22);
     }
 
-    .hero-card,
-    .card {
-      background: rgba(17, 24, 39, 0.7);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    .button-secondary {
+      color: var(--primary-strong);
+      border: 1px solid rgba(25, 84, 214, 0.14);
+      background: rgba(255, 255, 255, 0.78);
     }
 
-    main {
-      padding: 48px 0 80px;
-    }
-
-    .section-title {
-      font-size: 1.7rem;
-      margin-bottom: 20px;
-    }
-
-    .grid {
+    .hero-points {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .hero-point {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(19, 33, 59, 0.06);
+    }
+
+    .hero-point strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .hero-point span {
+      display: block;
+      color: var(--text-soft);
+      font-size: 0.92rem;
+    }
+
+    .hero-visual {
+      padding: 26px;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(140deg, rgba(76, 116, 230, 0.12), transparent 40%),
+        radial-gradient(circle at 85% 10%, rgba(18, 184, 134, 0.18), transparent 26%);
+      pointer-events: none;
+    }
+
+    .visual-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .visual-header strong {
+      font-size: 1.02rem;
+    }
+
+    .visual-badge {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #0f6d52;
+      font-weight: 700;
+      font-size: 0.84rem;
+    }
+
+    .screen {
+      position: relative;
+      z-index: 1;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgba(25, 84, 214, 0.12);
+      box-shadow: 0 18px 46px rgba(19, 33, 59, 0.08);
+    }
+
+    .screen-top {
+      padding: 16px 18px;
+      background: linear-gradient(135deg, var(--primary-strong), var(--primary));
+      color: #fff;
+    }
+
+    .screen-top strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .screen-top span {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .screen-body {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      background:
+        linear-gradient(180deg, rgba(76, 116, 230, 0.03), transparent 48%),
+        #fff;
+    }
+
+    .mini-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .mini-stat,
+    .mini-note,
+    .prisma-node {
+      border-radius: 16px;
+      border: 1px solid rgba(19, 33, 59, 0.08);
+      background: #fff;
+    }
+
+    .mini-stat {
+      padding: 12px 14px;
+    }
+
+    .mini-stat span,
+    .mini-note span {
+      display: block;
+      color: var(--text-soft);
+      font-size: 0.8rem;
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 1.15rem;
+      margin-top: 2px;
+    }
+
+    .screen-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 184px;
+      gap: 12px;
+    }
+
+    .paper-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .paper-row,
+    .note-box {
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      border: 1px solid rgba(19, 33, 59, 0.08);
+      padding: 14px;
+    }
+
+    .paper-row strong,
+    .note-box strong {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .paper-row p,
+    .note-box p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.86rem;
+    }
+
+    .decision-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 30px;
+      padding: 0 11px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .tag-include {
+      color: #0f6d52;
+      background: rgba(18, 184, 134, 0.12);
+    }
+
+    .tag-review {
+      color: #945700;
+      background: rgba(255, 196, 0, 0.16);
+    }
+
+    .tag-exclude {
+      color: #9d2d2d;
+      background: rgba(220, 70, 70, 0.12);
+    }
+
+    .prisma {
+      display: grid;
+      gap: 10px;
+    }
+
+    .prisma-node {
+      padding: 12px;
+      position: relative;
+    }
+
+    .prisma-node strong {
+      display: block;
+      font-size: 1.02rem;
+      margin-top: 4px;
+    }
+
+    .prisma-node:nth-child(1) {
+      background: rgba(134, 162, 250, 0.15);
+    }
+
+    .prisma-node:nth-child(2) {
+      background: rgba(255, 196, 0, 0.12);
+    }
+
+    .prisma-node:nth-child(3) {
+      background: rgba(18, 184, 134, 0.12);
+    }
+
+    .mini-note {
+      padding: 14px;
+      background: linear-gradient(180deg, rgba(25, 84, 214, 0.05), rgba(255, 255, 255, 0.94));
+    }
+
+    .mini-note strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.94rem;
+    }
+
+    section {
+      padding: 30px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 64ch;
+      color: var(--text-soft);
+    }
+
+    .stat-band {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      padding: 22px;
+      border-radius: 26px;
+    }
+
+    .stat-band article {
+      padding: 8px 6px;
+    }
+
+    .stat-band strong {
+      display: block;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-family: "Merriweather", Georgia, serif;
+      color: var(--primary-strong);
+      margin-bottom: 6px;
+    }
+
+    .stat-band span {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .feature-grid,
+    .module-grid,
+    .doc-grid {
+      display: grid;
       gap: 18px;
     }
 
-    .card h3 {
-      margin-top: 0;
+    .feature-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .feature-card,
+    .module-card,
+    .doc-card {
+      padding: 24px;
+      border-radius: 22px;
+    }
+
+    .feature-card h3,
+    .module-card h3,
+    .doc-card h3 {
+      font-size: 1.22rem;
       margin-bottom: 10px;
     }
 
-    .card p,
-    .hero-card p,
-    footer p {
-      color: var(--muted);
+    .feature-card p,
+    .module-card p,
+    .doc-card p,
+    .stage-card p,
+    .footer-copy p {
+      color: var(--text-soft);
+      margin: 0;
     }
 
-    .status {
+    .feature-kicker,
+    .doc-kicker {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: var(--text);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
+      padding: 6px 10px;
       border-radius: 999px;
-      background: var(--accent-2);
-      display: inline-block;
-      box-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
+      margin-bottom: 14px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--primary-strong);
+      background: rgba(76, 116, 230, 0.09);
     }
 
-    footer {
-      padding: 24px 0 48px;
-      border-top: 1px solid var(--border);
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
     }
 
-    @media (max-width: 860px) {
-      .hero,
-      .grid {
+    .stage-card {
+      position: relative;
+      padding: 24px 22px 22px;
+      border-radius: 22px;
+      overflow: hidden;
+    }
+
+    .stage-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 6px;
+      background: linear-gradient(180deg, var(--primary-strong), var(--accent));
+    }
+
+    .stage-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: rgba(76, 116, 230, 0.1);
+      color: var(--primary-strong);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .module-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .module-card ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: var(--text-soft);
+    }
+
+    .module-card li + li {
+      margin-top: 6px;
+    }
+
+    .doc-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .doc-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      justify-content: space-between;
+      min-height: 220px;
+    }
+
+    .doc-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--primary-strong);
+      font-weight: 700;
+    }
+
+    .doc-card a:hover,
+    .doc-card a:focus-visible {
+      color: var(--accent);
+    }
+
+    .footer-shell {
+      padding: 26px 0 48px;
+    }
+
+    .footer-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .footer-copy,
+    .footer-links {
+      padding: 24px 26px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .footer-copy h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .footer-meta {
+      display: grid;
+      gap: 10px;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .footer-links a {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      font-weight: 600;
+    }
+
+    .footer-links a:last-child {
+      border-bottom: 0;
+    }
+
+    .footer-links a:hover,
+    .footer-links a:focus-visible {
+      color: var(--primary-strong);
+    }
+
+    @keyframes float-card {
+      from { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      to { transform: translateY(0); }
+    }
+
+    .hero-visual .screen {
+      animation: float-card 7s ease-in-out infinite;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .footer-box,
+      .module-grid,
+      .doc-grid,
+      .workflow,
+      .feature-grid,
+      .stat-band {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-grid {
         grid-template-columns: 1fr;
       }
 
-      nav {
+      .hero-copy,
+      .hero-visual {
+        padding: 28px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .site-nav,
+      .section-head {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      h1 {
+        max-width: none;
+      }
+
+      .hero-points,
+      .feature-grid,
+      .workflow,
+      .module-grid,
+      .doc-grid,
+      .stat-band,
+      .footer-box,
+      .mini-strip,
+      .screen-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .container {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .hero-copy,
+      .hero-visual,
+      .feature-card,
+      .stage-card,
+      .module-card,
+      .doc-card,
+      .footer-copy,
+      .footer-links,
+      .stat-band {
+        border-radius: 20px;
       }
     }
   </style>
 </head>
 <body>
-  <header>
+  <div class="site-top">
     <div class="container">
-      <nav>
-        <div class="brand">Meu Projeto</div>
+      <nav class="site-nav" aria-label="Navegação principal">
+        <a class="brand" href="#topo">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 132 132" xmlns="http://www.w3.org/2000/svg" role="img">
+              <defs>
+                <linearGradient id="brand-fill" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#eaf0ff" />
+                  <stop offset="100%" stop-color="#ffffff" />
+                </linearGradient>
+              </defs>
+              <circle cx="66" cy="66" r="66" fill="url(#brand-fill)" />
+              <path d="M30 30H102a6 6 0 0 1 0 12H30a6 6 0 0 1 0-12Z" fill="#1954d6" />
+              <path d="M38 54H94a6 6 0 0 1 0 12H38a6 6 0 0 1 0-12Z" fill="#4c74e6" />
+              <path d="M46 78H86a6 6 0 0 1 0 12H46a6 6 0 0 1 0-12Z" fill="#86a2fa" />
+              <path d="M52 99l12 12 30-30" fill="none" stroke="#12b886" stroke-linecap="round" stroke-linejoin="round" stroke-width="10" />
+              <circle cx="100" cy="81" r="5" fill="#12b886" />
+            </svg>
+          </span>
+          <span>
+            Evidentia Review
+            <small>Plataforma para revisões sistemáticas orientadas por evidência</small>
+          </span>
+        </a>
         <div class="nav-links">
-          <a href="#sobre">Sobre</a>
-          <a href="#recursos">Recursos</a>
-          <a href="#contato">Contato</a>
+          <a href="#visao-geral">Visão Geral</a>
+          <a href="#fluxo">Fluxo</a>
+          <a href="#modulos">Módulos</a>
+          <a href="#documentacao">Documentação</a>
         </div>
       </nav>
+    </div>
+  </div>
 
-      <section class="hero">
-        <div>
-          <span class="tag">GitHub Pages · versão inicial</span>
-          <h1>Uma landing page simples para começar seu projeto.</h1>
-          <p class="subtitle">
-            Esta página foi criada para servir como ponto de partida. Você pode usar este espaço
-            para apresentar seu projeto, documentação, links importantes e formas de contato.
+  <main id="topo">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">CEDIS/UnB • revisão sistemática • rastreabilidade</div>
+          <h1>Do protocolo ao relatório final, em um único fluxo.</h1>
+          <p>
+            O Evidentia Review foi desenhado para equipes de pesquisa que precisam planejar,
+            triar, classificar, analisar e reportar revisões sistemáticas com consistência
+            metodológica, histórico de decisões e governança colaborativa.
           </p>
-          <div class="actions">
-            <a class="btn btn-primary" href="https://github.com/" target="_blank" rel="noreferrer">Ver repositório</a>
-            <a class="btn btn-secondary" href="#recursos">Explorar seção</a>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/CedisUnB/evidentia-review/tree/pages" target="_blank" rel="noreferrer">
+              Ver repositório
+            </a>
+            <a class="button button-secondary" href="#documentacao">
+              Explorar documentação
+            </a>
+          </div>
+          <div class="hero-points">
+            <div class="hero-point">
+              <strong>Planejamento estruturado</strong>
+              <span>PICOC, questões, critérios, qualidade e extração no mesmo protocolo.</span>
+            </div>
+            <div class="hero-point">
+              <strong>Triagem com consenso</strong>
+              <span>Fluxo TIAB/FTS, conflitos, deduplicação e trilha completa de revisão.</span>
+            </div>
+            <div class="hero-point">
+              <strong>Saídas auditáveis</strong>
+              <span>PRISMA 2020, síntese, bibliometria e relatórios reproduzíveis.</span>
+            </div>
           </div>
         </div>
 
-        <aside class="hero-card">
-          <div class="status"><span class="dot"></span> Site online pelo GitHub Pages</div>
-          <p>
-            Edite este arquivo <code>index.html</code>, faça commit e publique pelo branch configurado nas
-            opções de <strong>Settings → Pages</strong> do repositório.
-          </p>
-          <p>
-            Sugestão: depois, se quiser, você pode separar CSS e JavaScript em arquivos próprios.
-          </p>
-        </aside>
-      </section>
-    </div>
-  </header>
+        <div class="hero-visual" aria-label="Resumo visual da plataforma">
+          <div class="visual-header">
+            <div>
+              <strong>Painel do produto</strong>
+              <div style="color: var(--text-soft); font-size: 0.92rem;">planejar • filtrar • classificar • publicar</div>
+            </div>
+            <span class="visual-badge">auditabilidade ativa</span>
+          </div>
 
-  <main>
-    <div class="container">
-      <section id="sobre">
-        <h2 class="section-title">Sobre o projeto</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Objetivo</h3>
-            <p>Explique em 2 ou 3 frases o que seu projeto resolve e para quem ele foi criado.</p>
+          <div class="screen">
+            <div class="screen-top">
+              <strong>Screening Workbench + Reporting</strong>
+              <span>Triagem orientada por decisão, consenso e evidência exportável</span>
+            </div>
+            <div class="screen-body">
+              <div class="mini-strip">
+                <div class="mini-stat">
+                  <span>Registros importados</span>
+                  <strong>1.240</strong>
+                </div>
+                <div class="mini-stat">
+                  <span>Consensos fechados</span>
+                  <strong>318</strong>
+                </div>
+                <div class="mini-stat">
+                  <span>Estudos incluídos</span>
+                  <strong>42</strong>
+                </div>
+              </div>
+
+              <div class="screen-columns">
+                <div class="paper-stack">
+                  <div class="paper-row">
+                    <strong>Protocolos e critérios ativos</strong>
+                    <p>Objetivos, PICOC, fontes, strings de busca, checklist de qualidade e campos de extração alinhados.</p>
+                    <div class="decision-tags">
+                      <span class="tag tag-include">PICOC</span>
+                      <span class="tag tag-review">QA</span>
+                      <span class="tag tag-include">Extração</span>
+                    </div>
+                  </div>
+                  <div class="paper-row">
+                    <strong>Triagem colaborativa com prevalência por fase</strong>
+                    <p>TIAB e FTS convivem com consenso explícito, resolução de conflito e histórico por artigo.</p>
+                    <div class="decision-tags">
+                      <span class="tag tag-include">Include</span>
+                      <span class="tag tag-review">Maybe</span>
+                      <span class="tag tag-exclude">Exclude</span>
+                    </div>
+                  </div>
+                  <div class="note-box">
+                    <strong>Classificação e síntese orientadas por taxonomia</strong>
+                    <p>Facetas, tags, eixos de evidência, matrizes analíticas e preparação para relatórios finais.</p>
+                  </div>
+                </div>
+
+                <div class="prisma" aria-label="Resumo PRISMA ilustrativo">
+                  <div class="prisma-node">
+                    <span>Identificados</span>
+                    <strong>1.240</strong>
+                  </div>
+                  <div class="prisma-node">
+                    <span>Triados</span>
+                    <strong>980</strong>
+                  </div>
+                  <div class="prisma-node">
+                    <span>Incluídos</span>
+                    <strong>42</strong>
+                  </div>
+                  <div class="mini-note">
+                    <span>Bibliometria</span>
+                    <strong>OpenAlex, Crossref e Unpaywall</strong>
+                    <p>Enriquecimento e análises complementares acoplados ao ciclo da revisão.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="visao-geral">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Leitura do sistema</h2>
+          </div>
+          <p>
+            O estudo do repositório mostra um produto centrado em rigor metodológico. O núcleo do valor
+            está na integração entre protocolo, triagem, classificação, análise e publicação com
+            rastreabilidade das decisões em cada etapa.
+          </p>
+        </div>
+
+        <div class="stat-band" aria-label="Resumo das características do projeto">
+          <article>
+            <strong>4 fases</strong>
+            <span>Planning, conducting, screening e reporting articulados no mesmo ambiente.</span>
           </article>
-          <article class="card">
-            <h3>Tecnologias</h3>
-            <p>Liste a stack principal, como HTML, CSS, JavaScript, React, API, ou qualquer outra base.</p>
+          <article>
+            <strong>2 idiomas</strong>
+            <span>Interface preparada para inglês e português com estrutura de acessibilidade.</span>
           </article>
-          <article class="card">
-            <h3>Próximos passos</h3>
-            <p>Mostre o roadmap inicial: melhorias visuais, integração com dados, docs ou demo pública.</p>
+          <article>
+            <strong>1 trilha</strong>
+            <span>Histórico de consenso, QA, extração e auditoria preservado ao longo do fluxo.</span>
+          </article>
+          <article>
+            <strong>+ docs</strong>
+            <span>Arquitetura, runbooks, referência técnica e guias operacionais no próprio repositório.</span>
           </article>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="recursos" style="margin-top: 48px;">
-        <h2 class="section-title">Recursos</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Documentação</h3>
-            <p>Adicione links para guias, instruções de uso ou especificações do projeto.</p>
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Pontos fortes identificados</h2>
+          </div>
+          <p>
+            A nova landing passa a comunicar as capacidades reais do projeto em vez de uma página neutra.
+            Estes são os atributos mais consistentes que aparecem no código, na documentação e nas telas do sistema.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-kicker">Rigor</div>
+            <h3>Fluxo metodológico completo</h3>
+            <p>
+              O produto cobre a revisão sistemática ponta a ponta: protocolo, importação, triagem,
+              avaliação de qualidade, extração, análise e relatório.
+            </p>
           </article>
-          <article class="card">
-            <h3>Demonstração</h3>
-            <p>Inclua uma área com screenshots, GIFs, vídeos ou exemplos práticos.</p>
+          <article class="feature-card">
+            <div class="feature-kicker">Colaboração</div>
+            <h3>Consenso, conflito e papéis</h3>
+            <p>
+              A plataforma suporta múltiplos revisores, modos cegos, resolução de conflitos,
+              compartilhamento de revisões e governança por papéis.
+            </p>
           </article>
-          <article class="card">
-            <h3>Comunidade</h3>
-            <p>Referencie Issues, Discussions, formulário de contato ou links sociais.</p>
+          <article class="feature-card">
+            <div class="feature-kicker">Auditabilidade</div>
+            <h3>Decisões explicáveis e reproduzíveis</h3>
+            <p>
+              PRISMA 2020, trilhas de auditoria, metadados de geração e saídas reproduzíveis tornam
+              o processo mais defensável para pesquisa e prestação de contas.
+            </p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">Análise</div>
+            <h3>Taxonomia, facetas e síntese</h3>
+            <p>
+              O Evidentia não para na triagem: ele avança para classificação estruturada,
+              eixos de evidência, matrizes analíticas e relatórios guiados por síntese.
+            </p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">Integração</div>
+            <h3>Bibliometria conectada ao corpus</h3>
+            <p>
+              OpenAlex, Crossref e Unpaywall ampliam o contexto do estudo com tendências, redes,
+              venues e métricas adicionais sem quebrar o fluxo principal.
+            </p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-kicker">Operação</div>
+            <h3>Base técnica madura para evolução</h3>
+            <p>
+              O repositório concentra testes, runbooks, referências operacionais, auditorias UX/UI
+              e uma organização documental que sustenta manutenção contínua.
+            </p>
           </article>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
+
+    <section id="fluxo">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Fluxo real do produto</h2>
+          </div>
+          <p>
+            A página agora reflete a lógica central do sistema: não é uma ferramenta isolada de formulário,
+            mas uma cadeia de trabalho acadêmico e analítico com regras de prevalência entre etapas.
+          </p>
+        </div>
+
+        <div class="workflow">
+          <article class="stage-card">
+            <div class="stage-number">01</div>
+            <h3>Planejar</h3>
+            <p>
+              Definir protocolo, objetivos, PICOC, questões de pesquisa, fontes, critérios,
+              avaliação de qualidade e campos de extração.
+            </p>
+          </article>
+          <article class="stage-card">
+            <div class="stage-number">02</div>
+            <h3>Importar e triar</h3>
+            <p>
+              Ingerir BibTeX, RIS e outros formatos, deduplicar, executar screening TIAB/FTS
+              e construir consenso com rastreabilidade por artigo.
+            </p>
+          </article>
+          <article class="stage-card">
+            <div class="stage-number">03</div>
+            <h3>Classificar e analisar</h3>
+            <p>
+              Aplicar taxonomias, facetas, tags e eixos de evidência para descobrir padrões
+              e apoiar a síntese do corpus selecionado.
+            </p>
+          </article>
+          <article class="stage-card">
+            <div class="stage-number">04</div>
+            <h3>Reportar</h3>
+            <p>
+              Gerar PRISMA, relatórios internos e externos, outputs reproduzíveis e artefatos
+              auditáveis para compartilhamento com stakeholders.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="modulos">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Módulos que definem a identidade</h2>
+          </div>
+          <p>
+            O redesenho visual foi orientado pelos módulos mais distintivos do Evidentia Review,
+            priorizando a sensação de plataforma científica, analítica e confiável.
+          </p>
+        </div>
+
+        <div class="module-grid">
+          <article class="module-card">
+            <h3>Planning e protocolo</h3>
+            <p>
+              Organiza o desenho metodológico da revisão e alimenta as etapas seguintes com
+              critérios e estruturas consistentes.
+            </p>
+            <ul>
+              <li>PICOC, questões e estratégias de busca.</li>
+              <li>Critérios de inclusão/exclusão e QA.</li>
+              <li>Formulários e campos de extração configuráveis.</li>
+            </ul>
+          </article>
+
+          <article class="module-card">
+            <h3>Screening Workbench</h3>
+            <p>
+              É um dos centros operacionais do sistema e concentra decisão, progresso e consenso
+              em alto volume de registros.
+            </p>
+            <ul>
+              <li>Triagem TIAB e full text.</li>
+              <li>Blind mode, conflito e resolutores.</li>
+              <li>Deduplicação, notas e histórico por fase.</li>
+            </ul>
+          </article>
+
+          <article class="module-card">
+            <h3>Classificação e síntese</h3>
+            <p>
+              Move o sistema além do screening ao estruturar o conhecimento do corpus com taxonomia
+              e modelos de síntese.
+            </p>
+            <ul>
+              <li>Facetas, clusters, tags e eixos.</li>
+              <li>Matrizes analíticas e drilldown.</li>
+              <li>Versionamento e apoio à síntese estruturada.</li>
+            </ul>
+          </article>
+
+          <article class="module-card">
+            <h3>Reporting e governança</h3>
+            <p>
+              Fecha o ciclo com relatórios reproduzíveis, observabilidade do processo e mecanismos
+              controlados de compartilhamento.
+            </p>
+            <ul>
+              <li>PRISMA 2020, exportações e relatórios finais.</li>
+              <li>Links externos com controle de acesso.</li>
+              <li>Runbooks, segurança e documentação operacional.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="documentacao">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Entradas úteis da documentação</h2>
+          </div>
+          <p>
+            Como a GitHub Page serve como porta de entrada pública, ela agora aponta para a organização
+            documental que já existe no projeto e facilita navegação por perfil e necessidade.
+          </p>
+        </div>
+
+        <div class="doc-grid">
+          <article class="doc-card">
+            <div>
+              <div class="doc-kicker">Começar</div>
+              <h3>Getting Started</h3>
+              <p>Visão inicial do fluxo, onboarding e materiais para entender rapidamente como o sistema opera.</p>
+            </div>
+            <a href="https://github.com/CedisUnB/evidentia-review/tree/pages/docs/getting-started" target="_blank" rel="noreferrer">Abrir trilha inicial</a>
+          </article>
+
+          <article class="doc-card">
+            <div>
+              <div class="doc-kicker">Uso</div>
+              <h3>Guias e operação</h3>
+              <p>Documentos de apoio para usuários e desenvolvedores com foco em fluxo prático e manutenção contínua.</p>
+            </div>
+            <a href="https://github.com/CedisUnB/evidentia-review/tree/pages/docs/guides" target="_blank" rel="noreferrer">Explorar guias</a>
+          </article>
+
+          <article class="doc-card">
+            <div>
+              <div class="doc-kicker">Arquitetura</div>
+              <h3>Auditorias e decisões</h3>
+              <p>Planos técnicos, relatórios UX/UI, decisões arquiteturais e materiais que explicam a evolução do produto.</p>
+            </div>
+            <a href="https://github.com/CedisUnB/evidentia-review/tree/pages/docs/architecture" target="_blank" rel="noreferrer">Ver arquitetura</a>
+          </article>
+
+          <article class="doc-card">
+            <div>
+              <div class="doc-kicker">Produção</div>
+              <h3>Runbooks e referência</h3>
+              <p>Deploy, segurança, observabilidade, bibliometria, tuning e resposta operacional para ambientes reais.</p>
+            </div>
+            <a href="https://github.com/CedisUnB/evidentia-review/tree/pages/docs/runbooks" target="_blank" rel="noreferrer">Abrir runbooks</a>
+          </article>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer id="contato">
-    <div class="container">
-      <p>
-        Feito com GitHub Pages. Atualize este rodapé com seu nome, organização ou links de contato.
-      </p>
+  <footer class="footer-shell">
+    <div class="container footer-box">
+      <div class="footer-copy">
+        <h2>Uma presença pública coerente com o produto</h2>
+        <p>
+          A antiga página era um placeholder genérico. Esta versão assume a identidade do Evidentia Review:
+          pesquisa, clareza metodológica, colaboração e evidência auditável.
+        </p>
+        <div class="footer-meta" style="margin-top: 16px;">
+          <div>Autores vinculados ao CEDIS/UnB.</div>
+          <div>Stack principal: Django, PostgreSQL, Bootstrap e documentação técnica organizada em trilhas.</div>
+          <div>Foco do produto: revisões sistemáticas com suporte do protocolo ao relatório.</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://github.com/CedisUnB/evidentia-review/tree/pages" target="_blank" rel="noreferrer">Repositório no GitHub</a>
+        <a href="https://github.com/CedisUnB/evidentia-review/blob/pages/README.md" target="_blank" rel="noreferrer">README principal</a>
+        <a href="https://github.com/CedisUnB/evidentia-review/blob/pages/docs/README.md" target="_blank" rel="noreferrer">Índice da documentação</a>
+        <a href="https://cedis.unb.br" target="_blank" rel="noreferrer">CEDIS/UnB</a>
+      </div>
     </div>
   </footer>
 </body>
